@@ -1,0 +1,145 @@
+<LoginScreen>:
+    GridLayout:
+        cols: 1
+        GridLayout:
+            cols: 1
+            padding: 15,15
+            spacing: 20,20 
+            Label:
+                text: "User Login"
+                font_size:'20sp'
+            TextInput:
+                id: username
+                hint_text: "Username"
+            TextInput:
+                id: password
+                password: True
+                hint_text: "Password"
+            RelativeLayout:
+                Button:
+                    text: "Login"
+                    on_press: root.login(root.ids.username.text,root.ids.password.text)
+                    size_hint: 0.3,0.5
+                    pos_hint: {'center_x':0.5,'center_y':0.6}
+            Label:
+                id: login_wrong
+                text: ""
+        GridLayout:
+            cols: 2
+            size_hint: 0.2,0.2
+            padding: 15,15
+            spacing: 10,0
+            Button:
+                text: "Forgot Password?"
+                background_color: 1,1,1,0
+                opacity: 1 if self.state == 'normal' else 0.5
+                color: 0.1,0.7,1,1
+                on_press: root.get_password()
+            Button:
+                text: "Sign Up"
+                on_press: root.sign_up()
+                background_color: 1,1,1,0
+                opacity: 1 if self.state == 'normal' else 0.5
+                color: 0.1,0.7,1,1
+
+<SignUpScreen>:
+    GridLayout:
+        cols: 1
+        padding:20,20
+        spacing: 20,20
+        Label:
+            text: "Signup for Space Journey!"
+            font_size:'20sp'
+        TextInput:
+            id: username
+            hint_text: "New username"
+        TextInput:
+            id: password
+            hint_text: "New Password"
+        RelativeLayout:
+            Button:
+                text: "Submit"
+                on_press: root.add_press(root.ids.username.text,root.ids.password.text)
+                size_hint:0.3,0.6
+                pos_hint:{'center_x':0.5,'center_y':0.5}
+
+<SignUpScreenSuccess>:
+    GridLayout:
+        cols: 1
+        Label:
+            text: "Sign up successful"
+        Button:
+            text: "Login"
+            on_press: root.go_to_login()
+
+<LoginScreenSuccess>:
+    GridLayout:
+        cols: 1
+        padding: 30,30
+        spacing: 30,30
+        RelativeLayout:
+            ImageButton:
+                source:"logout_hover.png" if self.hovered else "logout_nothover.png"
+                on_press: root.log_out()
+                pos_hint: {'center_x':0.9,'center_y':0.9}
+                size_hint: 0.35,0.35
+        Label:
+            text: "How do you fell?"
+            font_size: '20sp'
+            size_hint: 0.5,0.5
+        TextInput:
+            id: feeling
+            hint_text: "Things to try: happy,sad,unloved..."
+        Button:
+            text: "Enlight me"
+            on_press: root.get_quote(root.ids.feeling.text)
+        ScrollView:
+            Label:
+                id: quote
+                text: ""
+                text_size: self.width,None
+                size_hint_y: None
+                height: self.texture_size[1]
+
+<ForgotPasswordScreen>:
+    GridLayout:
+        cols:1
+        padding: 20,20
+        spacing: 20,20
+        Label:
+            text: "Enter your username:"
+            font_size: '20sp'
+        TextInput:
+            id: username
+            hint_text: "username"
+        Button:
+            text: "Click to get password"
+            on_press: root.getpassword(root.ids.username.text)
+        Label:
+            id: fpassword
+            text: ""
+            background_color: 1,0,0,1
+            color: 0.5,0.7,1,1
+            font_size: '20sp'
+        RelativeLayout:    
+            Button:
+                text: "Login page"
+                on_press: root.go_to_login()
+                size_hint: 0.3,0.5
+                pos_hint:{'center_x':0.5,'center_y':0.5}
+                background_color: 0,0,1,0.5
+                font_size: '20sp'
+            
+
+<RootWidget>:
+    LoginScreen:
+        name: "login_screen"
+    SignUpScreen:
+        name: "sign_up_screen"
+    SignUpScreenSuccess:
+        name: "sign_up_screen_success"
+    LoginScreenSuccess:
+        name: "login_screen_success"
+    ForgotPasswordScreen:
+        name: "forgot_password_screen"
+
